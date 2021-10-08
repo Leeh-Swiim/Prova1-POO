@@ -65,7 +65,7 @@ public class Empresa {
     public void inativarFuncionario(){
         Funcionario funcionario = new Funcionario();
         if (funcionario.getEstaAtivo() == false){
-            funcionario.setIdEmpresa(null);
+            funcionario.setIdEmpresa(Integer.parseInt(null));
         }
         return;
 
