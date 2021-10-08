@@ -11,7 +11,7 @@ public class Funcionario {
     private Double salario;
     private String documento;
     private Boolean estaAtivo;
-
+    private Integer idEmpresa;
 
 
 
@@ -72,6 +72,15 @@ public class Funcionario {
         this.estaAtivo = estaAtivo;
     }
 
+    public int getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public Funcionario setIdEmpresa(Integer idEmpresa) {
+        this.idEmpresa = idEmpresa;
+        return null;
+    }
+
 
     // MÉTODOS
     public void atualizarSalario(double valor){
@@ -79,8 +88,12 @@ public class Funcionario {
     }
 
     public void demitirFuncionario(boolean estaAtivo){
-        estaAtivo = false;
-        setEstaAtivo(false);
+
+        if (getEstaAtivo() == false){
+            System.out.println("Empregado demitido!");
+            Empresa empresa = new Empresa();
+            empresa.inativarFuncionario();
+        }
     }
 
 
@@ -99,6 +112,7 @@ public class Funcionario {
         }
         if (estaAtivo==true){
             System.out.println("Status: Empregado");
+            System.out.println("Empresa: " + idEmpresa);
         }
         System.out.println("------------------------------------------------");
     }
