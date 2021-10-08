@@ -11,7 +11,7 @@ public class Funcionario {
     private Double salario;
     private String documento;
     private Boolean estaAtivo;
-    private Integer idEmpresa;
+    private int idEmpresa;
 
 
 
@@ -76,7 +76,7 @@ public class Funcionario {
         return idEmpresa;
     }
 
-    public Funcionario setIdEmpresa(Integer idEmpresa) {
+    public Funcionario setIdEmpresa(int idEmpresa) {
         this.idEmpresa = idEmpresa;
         return null;
     }
