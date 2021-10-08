@@ -11,9 +11,7 @@ public class Empresa {
     public String razaoSocial;
     public String cnpj;
 
-    public int idEmpregados;
-    public String nomeEmpregados;
-    public int idEmpresaEmpregados;
+
 
 
 
@@ -41,27 +39,10 @@ public class Empresa {
         this.cnpj = cnpj;
     }
 
-    public int getIdEmpregados() {
-        return idEmpregados;
-    }
 
-    public void setIdEmpregados(int idEmpregados) {
-        this.idEmpregados = idEmpregados;
-    }
-
-    public String getNomeEmpregados() {
-        return nomeEmpregados;
-    }
-
-    public void setNomeEmpregados(String nomeEmpregados) {
-        this.nomeEmpregados = nomeEmpregados;
-    }
 
     // MÉTODOS
     public void adicionarEmpregados(){
-        Funcionario funcionario = new Funcionario();
-        idEmpregados=funcionario.getIdFunc();
-        nomeEmpregados=funcionario.getNomeFunc();
 
             System.out.println("FUNCIONARIO ENCONTRADO!");
             System.out.println("Cadastrando funcionario...");
@@ -71,10 +52,8 @@ public class Empresa {
 
     public void mostrarEmpregados(){
         imprimir();
-        System.out.println("EMPREGADOS: ");
-        System.out.println("-------------------------------");
-        System.out.println("ID: " + getIdEmpregados());
-        System.out.println("Nome: " + getNomeEmpregados());
+        Funcionario funcionario = new Funcionario();
+
 
 
     }
@@ -85,10 +64,10 @@ public class Empresa {
 
     public void inativarFuncionario(){
         Funcionario funcionario = new Funcionario();
-        funcionario.setEstaAtivo(false);
         if (funcionario.getEstaAtivo() == false){
-            System.out.println("Empregado demitido!");
+            funcionario.setIdEmpresa(null);
         }
+        return;
 
     }
 
