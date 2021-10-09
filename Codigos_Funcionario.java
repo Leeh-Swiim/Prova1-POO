@@ -91,16 +91,14 @@ public class Funcionario {
 
         if (getEstaAtivo() == false){
             System.out.println("Empregado demitido!");
-            Empresa empresa = new Empresa();
-            empresa.inativarFuncionario();
+
         }
     }
 
 
 
     public void imprimir(){
-        System.out.println("\nDados do Funcionário");
-        System.out.println("------------------------------------------------");
+
         System.out.println("ID: " + idFunc);
         System.out.println("Nome: " + nomeFunc);
         System.out.println("Departamento: " + departamento);
@@ -114,7 +112,7 @@ public class Funcionario {
             System.out.println("Status: Empregado");
             System.out.println("Empresa: " + idEmpresa);
         }
-        System.out.println("------------------------------------------------");
+
     }
 
 }
