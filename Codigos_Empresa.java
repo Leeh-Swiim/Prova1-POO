@@ -51,32 +51,44 @@ public class Empresa {
     }
 
     public void mostrarEmpregados(){
+        System.out.println("\nDados da Empresa");
+        System.out.println("------------------------------------------------");
         imprimir();
-        Funcionario funcionario = new Funcionario();
+
 
 
 
     }
 
-    public void contemFuncionario(){
-
+    public void contemFuncionario(boolean achei){
+        if (achei==true){
+            System.out.println("Funcionario Encontrado!");
+            System.out.println("-----------------------");
+        }
+        if (achei==false){
+            System.out.println("Funcionario Invalido!");
+        }
     }
 
     public void inativarFuncionario(){
         Funcionario funcionario = new Funcionario();
         if (funcionario.getEstaAtivo() == false){
             funcionario.setIdEmpresa(Integer.parseInt(null));
+            System.out.println("Funcionario Inativo!");
         }
-        return;
+
 
     }
 
     public void mostrarFuncionariosAtivos(){
 
+            System.out.println("Nome Empresa: " + razaoSocial);
+            System.out.println("------------------------------------------------");
+
+
     }
     public void imprimir(){
-        System.out.println("\nDados da Empresa");
-        System.out.println("------------------------------------------------");
+
         System.out.println("ID: " + idEmpresa);
         System.out.println("Razao Social: " + razaoSocial);
         System.out.println("CNPJ: " + cnpj);
