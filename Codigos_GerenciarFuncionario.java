@@ -23,11 +23,13 @@ public class GerenciarFuncionario {
             System.out.println("2. Cadastrar Empresa");
             System.out.println("3. Atualizar Salário");
             System.out.println("4. Demitir Funcionário");
-            System.out.println("5. Listar Funcionários de UMA Empresa");
-            System.out.println("6. Listar Funcionários de TODAS as Empresas");
-            System.out.println("7. Adicionar Funcionário ao Quadro da Empresa");
-            System.out.println("8. Verificar Existência de Funcionário na Empresa");
-            System.out.println("9. SAIR");
+            System.out.println("5. Listar Todos os Funcionarios Cadastrados");
+            System.out.println("6. Listar Todas as Empresas Cadastradas");
+            System.out.println("7. Listar Funcionários de UMA Empresa");
+            System.out.println("8. Listar Funcionários de TODAS as Empresas");
+            System.out.println("9. Adicionar Funcionário ao Quadro da Empresa");
+            System.out.println("10. Verificar Existência de Funcionário na Empresa");
+            System.out.println("11. SAIR");
             System.out.println("Escolha sua opção: \n");
             opc = Integer.parseInt(input.nextLine());
 
@@ -45,18 +47,24 @@ public class GerenciarFuncionario {
                     gf.demitirFuncionario();
                     break;
                 case 5:
-                    gf.listarFuncUmaEmpresa();
+                    gf.listarFuncCadastrados();
                     break;
                 case 6:
-                    gf.listarFuncTodasEmpresas();
+                    gf.listarEmpresasCadastradas();
                     break;
                 case 7:
-                    gf.adicionarFuncionario();
+                    gf.listarFuncUmaEmpresa();
                     break;
                 case 8:
-                    gf.verificarFuncionario();
+                    gf.listarFuncTodasEmpresas();
                     break;
                 case 9:
+                    gf.adicionarFuncionario();
+                    break;
+                case 10:
+                    gf.verificarFuncionario();
+                    break;
+                case 11:
                     System.out.println("====================");
                     System.out.println("PROGRAMA FINALIZADO");
                     System.out.println("====================");
@@ -66,7 +74,7 @@ public class GerenciarFuncionario {
                     System.out.println("OPÇÃO INVÁLIDA");
                     System.out.println("===============");
             }
-        }while(opc !=9);
+        }while(opc !=11);
 
     }
 
@@ -142,19 +150,46 @@ public class GerenciarFuncionario {
 
             if (funcionario.getIdFunc() == codigo && funcionario.getEstaAtivo() == true){
                 funcionario.setEstaAtivo(false);
-                demitirFuncionario();
+                boolean estaAtivo = false;
+                funcionario.demitirFuncionario(estaAtivo);
                 return;
 
             }
-            else{
+
+            if (funcionario.getIdFunc()!=codigo && funcionario.getEstaAtivo() == true){
                 System.out.println("ERRO - ID INVALIDO!");
                 System.out.println("FUNCIONARIO NAO ENCONTRADO!");
-                return;
+
             }
+
 
 
         }
+        return;
     }
+
+    public void listarFuncCadastrados(){
+        System.out.println("\nFuncionarios Cadastrados");
+        System.out.println("------------------------------------------------");
+        for (Funcionario funcionario : listaFuncionarios){
+            funcionario.imprimir();
+            System.out.println("------------------------------------------------");
+
+        }
+        return;
+    }
+
+    public void listarEmpresasCadastradas(){
+        System.out.println("\nFuncionarios Cadastrados");
+        System.out.println("------------------------------------------------");
+
+        for (Empresa empresa : listaEmpresas){
+            empresa.imprimir();
+
+        }
+        return;
+    }
+
 
     public void listarFuncUmaEmpresa(){ //Funcionando
         Scanner input = new Scanner(System.in);
@@ -169,19 +204,24 @@ public class GerenciarFuncionario {
 
                 for (Funcionario funcionario : listaFuncionarios){
                     if (empresa.getIdEmpresa() == funcionario.getIdEmpresa() && funcionario.getEstaAtivo()==true){
+                        System.out.println("\nDados do Funcionário");
+                        System.out.println("------------------------------------------------");
                         funcionario.imprimir();
-                        System.out.println("---------------------");
-                        System.out.println("DEU CERTO!");
+                        System.out.println("------------------------------------------------");
+
+                    }
+                    if (empresa.getIdEmpresa() != funcionario.getIdEmpresa() && funcionario.getEstaAtivo()==true){
+                        System.out.println("Nenhum funcionario cadastrado nessa empresa.");
                     }
 
                 }
 
                 return;
             }
-            else {
+            if (empresa.getIdEmpresa() != codigo) {
                 System.out.println("ERRO - ID INVALIDO!");
                 System.out.println("EMPRESA NAO ENCONTRADA!");
-                return;
+
             }
 
         }
@@ -190,10 +230,18 @@ public class GerenciarFuncionario {
 
     }
     public void listarFuncTodasEmpresas(){
-        //APENAS PARA VERIFICAÇÃO -- VAI SAIR DAQUI
-        for (Empresa empresa: listaEmpresas){
-            empresa.imprimir();
+        for (Empresa empresa : listaEmpresas){
+        for (Funcionario funcionario : listaFuncionarios) {
+            if (funcionario.getEstaAtivo() == true) {
+
+                funcionario.imprimir();
+                empresa.mostrarFuncionariosAtivos();
+
+            }
         }
+        return;
+        }
+        return;
     }
 
     public void adicionarFuncionario() { //Funcionando
@@ -217,45 +265,62 @@ public class GerenciarFuncionario {
                         funcionario.setIdEmpresa(codigo);
                         empresa.adicionarEmpregados();
 
-                        return;
 
                     }
                 }
 
             }
-            else {
+            if (empresa.getIdEmpresa() != codigo){
                 System.out.println("ERRO - ID INVALIDO!");
                 System.out.println("EMPRESA NAO ENCONTRADA!");
 
-                return;
             }
 
         }
+        return;
     }
 
 
-    public void verificarFuncionario(){
-        //APENAS PARA VERIFICAÇÃO -- VAI SAIR DAQUI
-        for (Funcionario funcionario: listaFuncionarios){
-            funcionario.imprimir();
+    public void verificarFuncionario() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Digite o ID da Empresa que o funcionario trabalha: ");
+        int codigo = Integer.parseInt(input.nextLine());
+        System.out.println("-------------------------------");
+
+        for (Empresa empresa : listaEmpresas) {
+            if (empresa.getIdEmpresa() == codigo) {
+                System.out.println("EMPRESA ENCONTRADA!");
+                System.out.println("-------------------");
+
+
+                System.out.println("Digite o ID do funcionario desejado: ");
+                int codigo2 = Integer.parseInt(input.nextLine());
+                for (Funcionario funcionario : listaFuncionarios) {
+                    if (funcionario.getIdFunc() == codigo2 && funcionario.getEstaAtivo() == true) {
+                        boolean achei = true;
+                        empresa.contemFuncionario(achei);
+                        System.out.println("\nDados do Funcionário");
+                        System.out.println("------------------------------------------------");
+                        funcionario.imprimir();
+                        empresa.mostrarFuncionariosAtivos();
+
+
+                    }
+                    if (funcionario.getIdFunc() != codigo2 && funcionario.getEstaAtivo() == true) {
+                        empresa.contemFuncionario(false);
+
+                    }
+
+                }
+                return;
+
+            } else {
+                System.out.println("ERRO - ID INVALIDO!");
+                System.out.println("EMPRESA NAO ENCONTRADA!");
+
+            }
+
         }
+        return;
     }
 }
-
-/*
-    ERROS:
-        4. Demitir = Não demite outro funcionario além do menor digito
-        7. adicionarFuncionario = Não contrata um funcionario para outra empresa além da primeira cadastrada
-
-    FAZER:
-        5. listarFuncTodasEmpresas = Arrumar o codigo
-        8. verificarFuncionario = Arrumar o codigo
-
-    FUNCIONANDO (Aparentemente):
-        1. CadastrarFuncionario
-        2. CadastrarEmpresa
-        3. AtualizarSalario
-        6. listarFuncEmpresa
-
-
- */
